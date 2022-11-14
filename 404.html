@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page not found</title>
+    <script>
+      function replaceDocVersion(uri, replacerFunction) {
+        const docRegex = /\/(snapshot|latest|\d\.\d\d?)\//;
+        const match = uri.match(docRegex);
+        if (!match || match.length < 2) {
+          // No version matched
+          return null;
+        }
+        const version = match[1];
+        if (uri.includes(`/${replacerFunction(version)}/`)) {
+          // URI already had the version replaced
+          return null;
+        }
+        return uri.replace(docRegex, (fullMatch, version) => `/${replacerFunction(version)}/`);
+      }
+      const astarteOperatorPages = [
+        "000-upgrade_index.html",
+        "010-upgrade_010_011.html",
+        "020-upgrade_011_10.html",
+        "030-upgrade_100_10x.html",
+      ];
+      function isAstarteOperatorUri(uri) {
+        return astarteOperatorPages.some((page) => uri.includes(page));
+      }
+      window.onload = function () {
+        const currentUri = window.location.href;
+        const nextUri = isAstarteOperatorUri(currentUri)
+          ? replaceDocVersion(currentUri, (version) => `astarte-kubernetes-operator/latest`)
+          : replaceDocVersion(currentUri, (version) => `astarte/${version}`);
+        window.location.href = nextUri || window.location.origin;
+      };
+    </script>
+  </head>
+  <body>
+    <div>
+      <h1>Page not found</h1>
+    </div>
+  </body>
+</html>
