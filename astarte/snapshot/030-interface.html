@@ -4,45 +4,53 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.24.2">
+    <meta name="generator" content="ExDoc v0.29.0">
     <meta name="project" content="Astarte v1.1.0-dev">
 
     <title>Interfaces — Astarte v1.1.0-dev</title>
-    <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
+    <link rel="stylesheet" href="dist/html-elixir-2YOS5DIE.css" />
 
-    <script src="dist/sidebar_items-a32df562ac.js"></script>
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-X7YVL3G2.js"></script>
+    <script src="dist/sidebar_items-BA277065.js"></script>
 
       <script src="../common_vars.js"></script>
 
-    <script async src="dist/app-f27ff079945e43879c46.js"></script>
+    <script async src="dist/html-XN2TSG4M.js"></script>
 
 
   </head>
-  <body data-type="extras">
+  <body data-type="extras" class="page-extra">
     <script>
 
       try {
-        if (localStorage.getItem('night-mode') === 'true') {
-          document.body.classList.add('night-mode');
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
         }
       } catch (error) { }
     </script>
 
 <div class="main">
 
-<button class="sidebar-button sidebar-toggle">
-  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
 </button>
 
 <section class="sidebar">
   <form class="sidebar-search" action="search.html">
     <button type="submit" class="search-button" aria-label="Submit Search">
-      <span class="icon-search" aria-hidden="true" title="Submit search"></span>
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
     </button>
     <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
-      <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
     </button>
     <label class="search-label">
+      <p class="sr-only">Search</p>
       <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
     </label>
   </form>
@@ -53,41 +61,59 @@
   </div>
 
   <div class="sidebar-header">
-    <div class="sidebar-projectDetails">
-      <a href="http://astarte-platform.org" class="sidebar-projectName">
-Astarte
-      </a>
-      <strong class="sidebar-projectVersion">
-        v1.1.0-dev
-      </strong>
-    </div>
 
       <a href="http://astarte-platform.org">
         <img src="assets/logo.png" alt="Astarte" class="sidebar-projectImage">
       </a>
 
+    <div class="sidebar-projectDetails">
+      <a href="http://astarte-platform.org" class="sidebar-projectName" translate="no">
+Astarte
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v1.1.0-dev
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+
+    </ul>
   </div>
 
-  <ul class="sidebar-listNav">
-    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
-
-
-  </ul>
   <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
 </section>
 
 <section class="content">
+  <output role="status" id="toast"></output>
   <div class="content-outer">
     <div id="content" class="content-inner">
 
-<h1>Interfaces</h1><p>Interfaces are a core concept of Astarte which defines how data is exchanged between Astarte and its
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://git.ispirata.com/Astarte-NG/pages/architecture/030-interface.md#L1" title="View Source" class="view-source" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span>Interfaces</span>
+</h1>
+
+<p>Interfaces are a core concept of Astarte which defines how data is exchanged between Astarte and its
 peers. They are not to be intended as OOP interfaces, but rather as the following definition:</p><blockquote><p>In computing, an interface is a shared boundary across which two or more separate components of a
 computer system exchange information.</p></blockquote><p>In Astarte each interface has an owner, can represent either a continuous data stream or a snapshot
 of a set of properties, and can be either aggregated into an object or be an independent set of
 individual members.</p><p>If you are already familiar with interface's basic concepts, you might want to jump directly to the
 <a href="040-interface_schema.html">Interface Schema</a>.</p><h2 id="versioning" class="section-heading">
-  <a href="#versioning" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#versioning" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">versioning</p>
+  </a>
   Versioning
 </h2>
 <p>Interfaces are versioned, each interface having both a major version and a minor
@@ -98,7 +124,9 @@ additive changes only (e.g. adding members).</p><p>Several different major versi
 although a Device can hold only a single version of an interface at a time (even though interfaces
 can be updated over time). Interfaces, internally, are univocally identified by their name and their
 major version.</p><h2 id="format" class="section-heading">
-  <a href="#format" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#format" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">format</p>
+  </a>
   Format
 </h2>
 <p>Interfaces are described using a JSON document. Each interface is identified by an unique
@@ -110,7 +138,9 @@ name usually contains its author's URI Reverse Internet Domain Name.</p><p>An ex
     &quot;version_minor&quot;: 0,
     [...]
 }</code></pre><p>Valid values and variables are listed in the <a href="040-interface_schema.html">Interface Schema</a>.</p><h3 id="name-limitations" class="section-heading">
-  <a href="#name-limitations" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#name-limitations" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">name-limitations</p>
+  </a>
   Name limitations
 </h3>
 <p>A valid interface name consists of a Reverse Domain Name containing alphanumeric characters, hyphens
@@ -122,12 +152,16 @@ same name and different casing (e.g.: <code class="inline">org.astarte-platform.
 This also applies to Major versioning: interfaces sharing the same name with a different major
 version cannot have different casing.</p><p>Although not enforced, naming conventions for Astarte Interfaces require lowercasing for anything but
 the last part of the Interface name, which should be CamelCase.</p><p>Valid examples are:</p><ul><li><code class="inline">org.astarte-platform.conventions.ValidInterfaceName</code></li><li><code class="inline">org.astarte-platform.ValidInterfaceName</code></li><li><code class="inline">org.astarte-platform.conventions.satisfied.ValidInterfaceName</code></li></ul><p>Non-valid examples are:</p><ul><li><code class="inline">org.astarte-platform.Conventions.ValidInterfaceName</code></li><li><code class="inline">org.astarte-platform.validInterfaceName</code></li><li><code class="inline">org.astarte-platform.Conventions.satisfied.ValidInterfaceName</code></li></ul><h2 id="interface-type" class="section-heading">
-  <a href="#interface-type" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#interface-type" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">interface-type</p>
+  </a>
   Interface Type
 </h2>
 <p>Interfaces have a well-known, predefined type, which can be either <code class="inline">property</code> or
 <code class="inline">datastream</code>. Every Device in Astarte can have any number of interfaces of any different types.</p><h3 id="datastream" class="section-heading">
-  <a href="#datastream" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#datastream" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">datastream</p>
+  </a>
   Datastream
 </h3>
 <p><code class="inline">datastream</code> represents a mutable, ordered stream of data, with no concept of
@@ -136,7 +170,9 @@ dealing with values such as sensor samples, commands and events. <code class="in
 series in the database, making them suitable for time span filtering and any other common time
 series operation, and they are not idempotent in the REST API semantics.</p><p>Due to their nature, <code class="inline">datastream</code> interfaces have a number of <a href="#datastream-specific features">additional
 properties</a> which fine tune their behavior.</p><h3 id="properties" class="section-heading">
-  <a href="#properties" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#properties" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">properties</p>
+  </a>
   Properties
 </h3>
 <p><code class="inline">properties</code> represent a persistent, stateful, synchronized state with no concept of
@@ -147,14 +183,18 @@ stream like in the <code class="inline">datastream</code> case, <code class="inl
 <a href="060-triggers.html">trigger</a> whenever they change.</p><p>Values in a <code class="inline">properties</code> interface can be unset (or deleted according to the http jargon): to allow
 such a thing, the interface must have its <code class="inline">allow_unset</code> property set to <code class="inline">true</code>. Please <a href="040-interface_schema.html">refer to the
 JSON Schema</a> for further details.</p><h2 id="ownership" class="section-heading">
-  <a href="#ownership" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#ownership" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">ownership</p>
+  </a>
   Ownership
 </h2>
 <p>Astarte's design mandates that each interface has an owner. The owner of an interface
 has a write-only access to it, whereas other actors have read-only access. Interface <strong>ownership</strong>
 can be either <code class="inline">device</code> or <code class="inline">server</code>: the owner is the actor producing the data, whereas the other
 actor consumes data.</p><h2 id="mappings" class="section-heading">
-  <a href="#mappings" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#mappings" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">mappings</p>
+  </a>
   Mappings
 </h2>
 <p>Every interface must have an array of mappings. Mappings are designed around REST
@@ -171,7 +211,9 @@ endpoint supporting any number of parameters (see <a href="#limitations">Limitat
         },
     [...]</code></pre><p>In this example, <code class="inline">/0/value</code>, <code class="inline">/1/value</code> or <code class="inline">/test/value</code> all map to a valid endpoint, while
 <code class="inline">/te/st/value</code> can't be resolved by any endpoint.</p><h3 id="supported-data-types" class="section-heading">
-  <a href="#supported-data-types" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#supported-data-types" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">supported-data-types</p>
+  </a>
   Supported data types
 </h3>
 <p>The following types are supported:</p><ul><li><code class="inline">double</code>: A double-precision floating-point number as specified by binary64, by the IEEE 754
@@ -223,7 +265,9 @@ of a valid aggregated interface mapping:</p><pre><code class="json">    [...]
             &quot;type&quot;: &quot;string&quot;
         },
     [...]</code></pre><h2 id="aggregation" class="section-heading">
-  <a href="#aggregation" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#aggregation" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">aggregation</p>
+  </a>
   Aggregation
 </h2>
 <p>In a real world scenario, such as an array of sensors, there are usually two main
@@ -236,7 +280,9 @@ in a single message. In this case, all of the mappings share some core propertie
 timestamp.</p><p>Aggregation is a powerful mechanism that can be used to map interfaces to real world <em>&quot;objects&quot;</em>.
 Moreover, aggregated interfaces can also be parametrized, although with <a href="#limitations">some
 limitations</a>.</p><h3 id="endpoints-and-aggregation" class="section-heading">
-  <a href="#endpoints-and-aggregation" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#endpoints-and-aggregation" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">endpoints-and-aggregation</p>
+  </a>
   Endpoints and aggregation
 </h3>
 <p>Since Astarte 0.11, Aggregations cannot have endpoints with depth 1. This was an erroneously allowed
@@ -264,7 +310,9 @@ path <code class="inline">/</code> is not ambiguous.</p><p>This is the correct w
             &quot;type&quot;: &quot;string&quot;
         },
     [...]</code></pre><h2 id="datastream-specific-features" class="section-heading">
-  <a href="#datastream-specific-features" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#datastream-specific-features" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">datastream-specific-features</p>
+  </a>
   Datastream-specific features
 </h2>
 <p><code class="inline">datastream</code> interfaces are highly tunable, depending on the kind of
@@ -286,7 +334,9 @@ entry should be kept before giving up and erasing it from the persistent cache. 
 the persistent cache never expires, and is the default.</li><li><code class="inline">database_retention_policy</code>: Useful only with datastream. Defines whether data should expire
  from the database after a given interval. Valid values are: no_ttl and use_ttl.</li><li><code class="inline">database_retention_ttl</code>: Useful when database_retention_policy is <code class="inline">&quot;use_ttl&quot;</code>. Defines how many
 seconds a specific data entry should be kept before erasing it from the database.</li></ul><h2 id="best-practices" class="section-heading">
-  <a href="#best-practices" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#best-practices" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">best-practices</p>
+  </a>
   Best practices
 </h2>
 <ul><li>When creating interface drafts, or for testing purposes in general, it is recommended to use 0 as
@@ -323,34 +373,14 @@ Interface Schema
 
   </div>
 </div>
-
       <footer class="footer">
-        <p>
-          <span class="line">
-            Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.24.2) for the
-            <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
-          </span>
-          <span class="line">
-            Designed by
-            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
-          </span>
-        </p>
-        <p>
 
-          <button class="line footer-button display-shortcuts-help">
-            Display keyboard shortcuts
-          </button>
-          <button class="line footer-button night-mode-toggle">
-            Toggle night mode
-          </button>
-          <button class="line footer-button display-quick-switch">
-            Go to a HexDocs package
-          </button>
-          <button class="line footer-button tooltips-toggle">
-            <span class="tooltips-option-disable">Disable tooltips</span>
-            <span class="tooltips-option-enable">Enable tooltips</span>
-          </button>
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.0) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
         </p>
       </footer>
     </div>

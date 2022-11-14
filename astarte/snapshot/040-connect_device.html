@@ -4,45 +4,53 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.24.2">
+    <meta name="generator" content="ExDoc v0.29.0">
     <meta name="project" content="Astarte v1.1.0-dev">
 
     <title>Connecting a Device — Astarte v1.1.0-dev</title>
-    <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
+    <link rel="stylesheet" href="dist/html-elixir-2YOS5DIE.css" />
 
-    <script src="dist/sidebar_items-a32df562ac.js"></script>
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-X7YVL3G2.js"></script>
+    <script src="dist/sidebar_items-BA277065.js"></script>
 
       <script src="../common_vars.js"></script>
 
-    <script async src="dist/app-f27ff079945e43879c46.js"></script>
+    <script async src="dist/html-XN2TSG4M.js"></script>
 
 
   </head>
-  <body data-type="extras">
+  <body data-type="extras" class="page-extra">
     <script>
 
       try {
-        if (localStorage.getItem('night-mode') === 'true') {
-          document.body.classList.add('night-mode');
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
         }
       } catch (error) { }
     </script>
 
 <div class="main">
 
-<button class="sidebar-button sidebar-toggle">
-  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
 </button>
 
 <section class="sidebar">
   <form class="sidebar-search" action="search.html">
     <button type="submit" class="search-button" aria-label="Submit Search">
-      <span class="icon-search" aria-hidden="true" title="Submit search"></span>
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
     </button>
     <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
-      <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
     </button>
     <label class="search-label">
+      <p class="sr-only">Search</p>
       <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
     </label>
   </form>
@@ -53,35 +61,51 @@
   </div>
 
   <div class="sidebar-header">
-    <div class="sidebar-projectDetails">
-      <a href="http://astarte-platform.org" class="sidebar-projectName">
-Astarte
-      </a>
-      <strong class="sidebar-projectVersion">
-        v1.1.0-dev
-      </strong>
-    </div>
 
       <a href="http://astarte-platform.org">
         <img src="assets/logo.png" alt="Astarte" class="sidebar-projectImage">
       </a>
 
+    <div class="sidebar-projectDetails">
+      <a href="http://astarte-platform.org" class="sidebar-projectName" translate="no">
+Astarte
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v1.1.0-dev
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+
+    </ul>
   </div>
 
-  <ul class="sidebar-listNav">
-    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
-
-
-  </ul>
   <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
 </section>
 
 <section class="content">
+  <output role="status" id="toast"></output>
   <div class="content-outer">
     <div id="content" class="content-inner">
 
-<h1>Connecting a Device</h1><p>Once a Device has been Registered in Astarte, it is capable of connecting to it.</p><p>Devices connect to Astarte through the use of <em>Transports</em>. A Transport is an arbitrary protocol
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://git.ispirata.com/Astarte-NG/pages/user/040-connect_device.md#L1" title="View Source" class="view-source" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span>Connecting a Device</span>
+</h1>
+
+<p>Once a Device has been Registered in Astarte, it is capable of connecting to it.</p><p>Devices connect to Astarte through the use of <em>Transports</em>. A Transport is an arbitrary protocol
 implementation which maps Astarte's concepts (mainly Interfaces) to a communication channel.
 Astarte's main supported Transport is Astarte/MQTT, implemented on top of
 <a href="https://github.com/erlio/vernemq">VerneMQ</a> through <a href="https://github.com/astarte-platform/astarte_vmq_plugin">an additional
@@ -91,7 +115,9 @@ corresponding Transport.</p><p>Transports also define the authentication/authori
 Astarte/MQTT uses <a href="https://en.wikipedia.org/wiki/Mutual_authentication">mutual SSL Authentication</a>
 with Certificate Rotation for securing its Ingress and identifying its clients. To manage their
 Transport(s) and Credentials, Devices have to interact with Pairing.</p><h2 id="credentials-secret-pairing-and-transports" class="section-heading">
-  <a href="#credentials-secret-pairing-and-transports" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#credentials-secret-pairing-and-transports" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">credentials-secret-pairing-and-transports</p>
+  </a>
   Credentials Secret, Pairing and Transports
 </h2>
 <p>Once a Device has performed its first registration through an Agent, it holds its <em>Credentials
@@ -102,14 +128,17 @@ API</a>, which
 is then used for obtaining information about which Transports the Device can use for communicating,
 and for obtaining Credentials for its assigned Transports.</p><p>The ability to request Credentials of a Device can be inhibited with <a href="https://docs.astarte-platform.org/1.0/api/#/device/updateDeviceStatus">AppEngine
 API</a> or using
-<a href="https://github.com/astarte-platform/astartectl"><code class="inline">astartectl</code></a> with this command:</p><pre><code class="bash">astartectl appengine devices credentials inhibit &lt;device_id_or_alias&gt; true \
-  -k &lt;appengine-key&gt; -r &lt;realm-name&gt; -u &lt;astarte-api-url&gt;</code></pre><p>Once its <code class="inline">credentials_inhibited</code> field is set to <code class="inline">true</code>, a Device is not able to request new
+<a href="https://github.com/astarte-platform/astartectl"><code class="inline">astartectl</code></a> with this command:</p><pre><code class="makeup bash" translate="no"><span class="">astartectl appengine devices credentials inhibit &lt;device_id_or_alias&gt; true \
+</span><span class="">  -k &lt;appengine-key&gt; -r &lt;realm-name&gt; -u &lt;astarte-api-url&gt;
+</span></code></pre><p>Once its <code class="inline">credentials_inhibited</code> field is set to <code class="inline">true</code>, a Device is not able to request new
 Credentials. Note that Credentials that were already emitted will still be valid until their
 expiration.</p><p>As, from a user's standpoint, the way a Device communicates with Astarte is entirely
 Transport-specific, this guide will cover using Astarte/MQTT through one of Astarte's SDKs. If you
 are using a different Transport, please refer to its User Guide, or if you wish to implement your
 own, head over to <a href="">Transport Developer Documentation</a>.</p><h2 id="using-astarte-mqtt-through-astarte-sdk" class="section-heading">
-  <a href="#using-astarte-mqtt-through-astarte-sdk" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#using-astarte-mqtt-through-astarte-sdk" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">using-astarte-mqtt-through-astarte-sdk</p>
+  </a>
   Using Astarte/MQTT through Astarte SDK
 </h2>
 <p>If you are using one of Astarte's SDK, the Pairing routine is entirely managed, and you won't need
@@ -121,7 +150,9 @@ valid, the certificate is erased and the Pairing procedure begins.</li><li>The S
 connect to the Transport. Once in this state, the Device can start exchanging data.</p><p><em>Note: the Pairing procedure is secure as long as Pairing API is queried using HTTPS. Plain HTTP
 installations are vulnerable to a number of different attacks and should NEVER be used in
 production.</em></p><h3 id="interfaces-and-introspection" class="section-heading">
-  <a href="#interfaces-and-introspection" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#interfaces-and-introspection" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">interfaces-and-introspection</p>
+  </a>
   Interfaces and Introspection
 </h3>
 <p>A Device <strong>must</strong> have some installed interfaces to be capable of exchanging data. These interfaces
@@ -132,7 +163,9 @@ Introspection is a special control message in Astarte's protocol which makes Ast
 of Interfaces and relative versions which are installed on the Device.</p><p>Again, Astarte's SDK, given a directory, is capable of performing the correct procedures for keeping
 Introspecting in sync correctly without any kind of user intervention. Astarte's SDK also takes care
 of updating a Device's Introspection if its interfaces change.</p><h3 id="exchanging-data" class="section-heading">
-  <a href="#exchanging-data" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#exchanging-data" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">exchanging-data</p>
+  </a>
   Exchanging data
 </h3>
 <p>When a Device connects successfully, it <strong>must</strong> then subscribe to its <code class="inline">server</code> Interfaces. The SDK
@@ -148,7 +181,9 @@ void AstarteStreamQt5Test::handleIncomingData(const QByteArray &amp;interface, c
 }</code></pre><p>Applications can simply connect to the <code class="inline">handleIncomingData</code> signal and have data correctly formatted
 and delivered as it runs through the transport. On the other hand, for sending data:</p><pre><code class="c++">m_sdk-&gt;sendData(interface, path, value);</code></pre><p>The SDK will check if data is coherent with its introspection, and send data onto the transport in
 the correct way.</p><h3 id="reliability-retention-and-persistency-in-the-sdk" class="section-heading">
-  <a href="#reliability-retention-and-persistency-in-the-sdk" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#reliability-retention-and-persistency-in-the-sdk" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">reliability-retention-and-persistency-in-the-sdk</p>
+  </a>
   Reliability, retention and persistency in the SDK
 </h3>
 <p>Astarte's SDK has an internal concept of persistency, depending on the behaviour defined in its
@@ -184,34 +219,14 @@ Astarte Device SDKs
 
   </div>
 </div>
-
       <footer class="footer">
-        <p>
-          <span class="line">
-            Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.24.2) for the
-            <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
-          </span>
-          <span class="line">
-            Designed by
-            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
-          </span>
-        </p>
-        <p>
 
-          <button class="line footer-button display-shortcuts-help">
-            Display keyboard shortcuts
-          </button>
-          <button class="line footer-button night-mode-toggle">
-            Toggle night mode
-          </button>
-          <button class="line footer-button display-quick-switch">
-            Go to a HexDocs package
-          </button>
-          <button class="line footer-button tooltips-toggle">
-            <span class="tooltips-option-disable">Disable tooltips</span>
-            <span class="tooltips-option-enable">Enable tooltips</span>
-          </button>
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.0) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
         </p>
       </footer>
     </div>

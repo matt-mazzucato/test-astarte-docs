@@ -4,45 +4,53 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.24.2">
+    <meta name="generator" content="ExDoc v0.29.0">
     <meta name="project" content="Astarte v1.1.0-dev">
 
     <title>Troubleshooting — Astarte v1.1.0-dev</title>
-    <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
+    <link rel="stylesheet" href="dist/html-elixir-2YOS5DIE.css" />
 
-    <script src="dist/sidebar_items-a32df562ac.js"></script>
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-X7YVL3G2.js"></script>
+    <script src="dist/sidebar_items-BA277065.js"></script>
 
       <script src="../common_vars.js"></script>
 
-    <script async src="dist/app-f27ff079945e43879c46.js"></script>
+    <script async src="dist/html-XN2TSG4M.js"></script>
 
 
   </head>
-  <body data-type="extras">
+  <body data-type="extras" class="page-extra">
     <script>
 
       try {
-        if (localStorage.getItem('night-mode') === 'true') {
-          document.body.classList.add('night-mode');
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
         }
       } catch (error) { }
     </script>
 
 <div class="main">
 
-<button class="sidebar-button sidebar-toggle">
-  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
 </button>
 
 <section class="sidebar">
   <form class="sidebar-search" action="search.html">
     <button type="submit" class="search-button" aria-label="Submit Search">
-      <span class="icon-search" aria-hidden="true" title="Submit search"></span>
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
     </button>
     <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
-      <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
     </button>
     <label class="search-label">
+      <p class="sr-only">Search</p>
       <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
     </label>
   </form>
@@ -53,53 +61,79 @@
   </div>
 
   <div class="sidebar-header">
-    <div class="sidebar-projectDetails">
-      <a href="http://astarte-platform.org" class="sidebar-projectName">
-Astarte
-      </a>
-      <strong class="sidebar-projectVersion">
-        v1.1.0-dev
-      </strong>
-    </div>
 
       <a href="http://astarte-platform.org">
         <img src="assets/logo.png" alt="Astarte" class="sidebar-projectImage">
       </a>
 
+    <div class="sidebar-projectDetails">
+      <a href="http://astarte-platform.org" class="sidebar-projectName" translate="no">
+Astarte
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v1.1.0-dev
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+
+    </ul>
   </div>
 
-  <ul class="sidebar-listNav">
-    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
-
-
-  </ul>
   <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
 </section>
 
 <section class="content">
+  <output role="status" id="toast"></output>
   <div class="content-outer">
     <div id="content" class="content-inner">
 
-<h1>Troubleshooting</h1><p>Be sure to check <a href="095-known_issues.html">known issues</a> to see if your problem is already covered
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://git.ispirata.com/Astarte-NG/pages/user/090-troubleshooting.md#L1" title="View Source" class="view-source" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span>Troubleshooting</span>
+</h1>
+
+<p>Be sure to check <a href="095-known_issues.html">known issues</a> to see if your problem is already covered
 there.</p><h2 id="devices" class="section-heading">
-  <a href="#devices" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#devices" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">devices</p>
+  </a>
   Devices
 </h2>
 <h3 id="devices-cannot-connect-to-astarte" class="section-heading">
-  <a href="#devices-cannot-connect-to-astarte" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#devices-cannot-connect-to-astarte" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">devices-cannot-connect-to-astarte</p>
+  </a>
   Devices cannot connect to Astarte
 </h3>
 <h4>There might be some network issues or network misconfiguration</h4><p>Devices need a working network connection in order to communicate with Astarte. There might be some temporary network issues, or any network setting or appliance might not be properly configured. Make sure that devices are allowed to make outbound connections on ports 443 (https) and any port the transport needs for accepting connections from devices. For Astarte/VerneMQ, this defaults to 8883 (MQTT over SSL), but might also be configured otherwise.</p><h4>SSL issues</h4><p>Devices need to be able to connect to Astarte using SSL. Make sure that the clock has been synched to avoid certificate issue/expiry date errors, make also sure to have all the root CAs up to date.</p><h3 id="device-gets-disconnected-from-astarte" class="section-heading">
-  <a href="#device-gets-disconnected-from-astarte" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#device-gets-disconnected-from-astarte" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">device-gets-disconnected-from-astarte</p>
+  </a>
   Device gets disconnected from Astarte
 </h3>
 <h4>Some interfaces might be missing</h4><p>When a device reports an interface that Astarte doesn't have, it gets disconnected when the introspection is published. Make sure that all device interfaces have been previously installed on Astarte. Make also sure that interface name and major exactly matches installed version.</p><h4>Device is publishing unexpected or malformed data</h4><p>When a device sends invalid, malformed or unexpected data it gets disconnected, make sure that the device is sending valid data. An interface mismatch might be the most common reason for this kind of issues. e.g. the interface has been declared device owned on the device, and astarte owned on astarte. Make sure to use exactly the same JSON file on both ends.</p><h2 id="triggers" class="section-heading">
-  <a href="#triggers" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#triggers" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">triggers</p>
+  </a>
   Triggers
 </h2>
 <h3 id="triggers-are-not-executed" class="section-heading">
-  <a href="#triggers-are-not-executed" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#triggers-are-not-executed" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">triggers-are-not-executed</p>
+  </a>
   Triggers are not executed
 </h3>
 <h4>Triggers have not been loaded yet</h4><p>Triggers might take some time before being loaded for devices that have been recently connected, make sure to wait some time before the triggers cache is populated again.
@@ -130,34 +164,14 @@ Known issues
 
   </div>
 </div>
-
       <footer class="footer">
-        <p>
-          <span class="line">
-            Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.24.2) for the
-            <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
-          </span>
-          <span class="line">
-            Designed by
-            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
-          </span>
-        </p>
-        <p>
 
-          <button class="line footer-button display-shortcuts-help">
-            Display keyboard shortcuts
-          </button>
-          <button class="line footer-button night-mode-toggle">
-            Toggle night mode
-          </button>
-          <button class="line footer-button display-quick-switch">
-            Go to a HexDocs package
-          </button>
-          <button class="line footer-button tooltips-toggle">
-            <span class="tooltips-option-disable">Disable tooltips</span>
-            <span class="tooltips-option-enable">Enable tooltips</span>
-          </button>
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.0) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
         </p>
       </footer>
     </div>

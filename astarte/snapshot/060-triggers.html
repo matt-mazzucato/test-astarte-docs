@@ -4,45 +4,53 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.24.2">
+    <meta name="generator" content="ExDoc v0.29.0">
     <meta name="project" content="Astarte v1.1.0-dev">
 
     <title>Triggers — Astarte v1.1.0-dev</title>
-    <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
+    <link rel="stylesheet" href="dist/html-elixir-2YOS5DIE.css" />
 
-    <script src="dist/sidebar_items-a32df562ac.js"></script>
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-X7YVL3G2.js"></script>
+    <script src="dist/sidebar_items-BA277065.js"></script>
 
       <script src="../common_vars.js"></script>
 
-    <script async src="dist/app-f27ff079945e43879c46.js"></script>
+    <script async src="dist/html-XN2TSG4M.js"></script>
 
 
   </head>
-  <body data-type="extras">
+  <body data-type="extras" class="page-extra">
     <script>
 
       try {
-        if (localStorage.getItem('night-mode') === 'true') {
-          document.body.classList.add('night-mode');
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
         }
       } catch (error) { }
     </script>
 
 <div class="main">
 
-<button class="sidebar-button sidebar-toggle">
-  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
 </button>
 
 <section class="sidebar">
   <form class="sidebar-search" action="search.html">
     <button type="submit" class="search-button" aria-label="Submit Search">
-      <span class="icon-search" aria-hidden="true" title="Submit search"></span>
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
     </button>
     <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
-      <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
     </button>
     <label class="search-label">
+      <p class="sr-only">Search</p>
       <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
     </label>
   </form>
@@ -53,49 +61,69 @@
   </div>
 
   <div class="sidebar-header">
-    <div class="sidebar-projectDetails">
-      <a href="http://astarte-platform.org" class="sidebar-projectName">
-Astarte
-      </a>
-      <strong class="sidebar-projectVersion">
-        v1.1.0-dev
-      </strong>
-    </div>
 
       <a href="http://astarte-platform.org">
         <img src="assets/logo.png" alt="Astarte" class="sidebar-projectImage">
       </a>
 
+    <div class="sidebar-projectDetails">
+      <a href="http://astarte-platform.org" class="sidebar-projectName" translate="no">
+Astarte
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v1.1.0-dev
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+
+    </ul>
   </div>
 
-  <ul class="sidebar-listNav">
-    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
-
-
-  </ul>
   <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
 </section>
 
 <section class="content">
+  <output role="status" id="toast"></output>
   <div class="content-outer">
     <div id="content" class="content-inner">
 
-<h1>Triggers</h1><p>Triggers in Astarte are the go-to mechanism for generating push events. In contrast with AppEngine's
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://git.ispirata.com/Astarte-NG/pages/architecture/060-triggers.md#L1" title="View Source" class="view-source" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span>Triggers</span>
+</h1>
+
+<p>Triggers in Astarte are the go-to mechanism for generating push events. In contrast with AppEngine's
 REST APIs, Triggers allow users to specify conditions upon which a custom payload is delivered to a
 recipient, using a specific <code class="inline">action</code>, which usually maps to a specific transport/protocol, such as
 HTTP.</p><p>Given this kind of flexibility, triggers are the most powerful way to push data to an external
 service, potentially without any additional customization.</p><p>Triggers can be managed from <a href="api/index.html?urls.primaryName=Realm%20Management%20API#/trigger">Realm Management
 API</a>, <code class="inline">astartectl</code> with the
 <code class="inline">astartectl realm-management triggers</code> subcommand, or Astarte Dashboard in the <code class="inline">Triggers</code> page.</p><h2 id="building-triggers" class="section-heading">
-  <a href="#building-triggers" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#building-triggers" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">building-triggers</p>
+  </a>
   Building Triggers
 </h2>
 <p>Triggers can be either built manually or using Astarte Dashboard's Trigger Editor. Trigger Editor
 dynamically loads installed Interfaces in the Realm and eases trigger creation by providing not
 only linting and validation, but also dynamic resolution of Interface names.</p><p>Trigger Editor works in a very similar fashion to Interfaces Editor, and shares the same User
 Interface.</p><h3 id="format" class="section-heading">
-  <a href="#format" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#format" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">format</p>
+  </a>
   Format
 </h3>
 <p>A trigger is described using a JSON document. Each trigger is defined by two main parts: <code class="inline">condition</code>
@@ -132,14 +160,18 @@ then the trigger is activated. For more information about all the possible condi
     &quot;value&quot;: &lt;some_value&gt;
   }
 }</code></pre><p>To know more about all possible actions, check the <a href="#actions">Actions section</a></p><h2 id="conditions" class="section-heading">
-  <a href="#conditions" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#conditions" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">conditions</p>
+  </a>
   Conditions
 </h2>
 <p>A condition defines the event upon which an action is triggered. Conditions are expressed through
 simple triggers. Astarte monitors incoming events and triggers a corresponding action whenever there
 is a match.</p><p>Simple triggers are divided into two types: <a href="#device-triggers">Device Triggers</a> and <a href="#data-triggers">Data
 Triggers</a>.</p><h3 id="device-triggers" class="section-heading">
-  <a href="#device-triggers" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#device-triggers" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">device-triggers</p>
+  </a>
   Device Triggers
 </h3>
 <p>Device triggers express conditions matching the state of a device.</p><p>This is the generic representation of a Data Trigger:</p><pre><code class="json">{
@@ -151,7 +183,9 @@ Triggers</a>.</p><h3 id="device-triggers" class="section-heading">
 is also accepted as <code class="inline">device_id</code> to maintain backwards compatibility and it is considered equivalent
 to no <code class="inline">device_id</code> specified.</p><p><code class="inline">group_name</code> can be used to restrict the trigger to all devices that are member of the group.</p><p><code class="inline">device_id</code> and <code class="inline">group_name</code> are mutually exclusive and if neither of them is specified in the
 simple trigger, the simple trigger will be installed for all devices in a realm.</p><h3 id="data-triggers" class="section-heading">
-  <a href="#data-triggers" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#data-triggers" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">data-triggers</p>
+  </a>
   Data Triggers
 </h3>
 <p>Data triggers express conditions matching data coming from a device.</p><p>This is the generic representation of a Device Trigger:</p><pre><code class="json">{
@@ -183,13 +217,17 @@ otherwise it can be one of these operators: <code class="inline">==</code>, <cod
 <code class="inline">contains</code> and <code class="inline">not_contains</code> can be used only with type <code class="inline">string</code>, <code class="inline">binaryblob</code> and with array types.</p><p><code class="inline">known_value</code> is the value used with <code class="inline">value_match_operator</code> to perform the comparison on the
 incoming value. It must have the same type as the incoming value, except in the <code class="inline">contains</code> and
 <code class="inline">not_contains</code> case.</p><h2 id="actions" class="section-heading">
-  <a href="#actions" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#actions" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">actions</p>
+  </a>
   Actions
 </h2>
 <p>Actions are triggered by a matching condition. An Action defines how the event should be sent to the
 outer world (e.g. an http POST on a certain URL). In addition, most actions have a Payload, which
 carries the body of the event.</p><h3 id="http-actions" class="section-heading">
-  <a href="#http-actions" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#http-actions" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">http-actions</p>
+  </a>
   HTTP Actions
 </h3>
 <p>Payloads are most of the time represented as text, and Astarte provides several ways to generate
@@ -211,7 +249,9 @@ to produce <code class="inline">text/plain</code> payloads, not valid JSON.</p><
 }</code></pre><p>The <code class="inline">ignore_ssl_errors</code> key is optional and defaults to <code class="inline">false</code>. If set to <code class="inline">true</code>, any SSL error
 encountered while doing the HTTP request will be ignored. This can be useful if the trigger must
 ignore self-signed or expired certificates.</p><p>Please, beware that some http headers might be not allowed or reserved for http connection signaling.</p><h3 id="simpleevent-payloads" class="section-heading">
-  <a href="#simpleevent-payloads" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#simpleevent-payloads" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">simpleevent-payloads</p>
+  </a>
   SimpleEvent payloads
 </h3>
 <p>The payload delivered in a default HTTP action or in <a href="052-using_channels.html">Astarte Channels</a> is
@@ -310,7 +350,9 @@ Host: example.com
 User-Agent: hackney/1.13.0
 
 Device ydqBlFsGQ--xZ-_efQxuLw just connected from IP 172.18.0.1</code></pre><h3 id="amqp-0-9-1-actions" class="section-heading">
-  <a href="#amqp-0-9-1-actions" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#amqp-0-9-1-actions" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">amqp-0-9-1-actions</p>
+  </a>
   AMQP 0-9-1 Actions
 </h3>
 <p>AMQP 0-9-1 actions might be configured as an alternative to HTTP actions for advanced use cases.
@@ -333,7 +375,9 @@ therefore if any other format is required Astarte Flow should be employed as a f
   &quot;amqp_message_priority&quot;: 0,
   &quot;amqp_message_persistent&quot;: true,
 }</code></pre><p>Some Astarte specific restrictions apply:</p><ul><li><code class="inline">amqp_exchange</code> must have <code class="inline">astarte_events_&lt;realm-name&gt;_&lt;any-allowed-string&gt;</code> format.</li><li><code class="inline">amqp_routing_key</code> must not contain <code class="inline">{</code> and <code class="inline">}</code>, which are reserved for future uses.</li></ul><p>For further details <a href="https://www.rabbitmq.com/amqp-0-9-1-reference.html">RabbitMQ documentation</a> is suggested.</p><h2 id="relationship-with-channels" class="section-heading">
-  <a href="#relationship-with-channels" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#relationship-with-channels" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">relationship-with-channels</p>
+  </a>
   Relationship with Channels
 </h2>
 <p>Channels are part of AppEngine, and allow users to monitor device events through WebSockets, on top
@@ -365,34 +409,14 @@ Groups
 
   </div>
 </div>
-
       <footer class="footer">
-        <p>
-          <span class="line">
-            Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.24.2) for the
-            <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
-          </span>
-          <span class="line">
-            Designed by
-            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
-          </span>
-        </p>
-        <p>
 
-          <button class="line footer-button display-shortcuts-help">
-            Display keyboard shortcuts
-          </button>
-          <button class="line footer-button night-mode-toggle">
-            Toggle night mode
-          </button>
-          <button class="line footer-button display-quick-switch">
-            Go to a HexDocs package
-          </button>
-          <button class="line footer-button tooltips-toggle">
-            <span class="tooltips-option-disable">Disable tooltips</span>
-            <span class="tooltips-option-enable">Enable tooltips</span>
-          </button>
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.0) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
         </p>
       </footer>
     </div>

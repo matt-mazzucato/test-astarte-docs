@@ -4,45 +4,53 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.24.2">
+    <meta name="generator" content="ExDoc v0.29.0">
     <meta name="project" content="Astarte v1.1.0-dev">
 
     <title>Astarte Database — Astarte v1.1.0-dev</title>
-    <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
+    <link rel="stylesheet" href="dist/html-elixir-2YOS5DIE.css" />
 
-    <script src="dist/sidebar_items-a32df562ac.js"></script>
+    <script src="dist/handlebars.runtime-NWIB6V2M.js"></script>
+    <script src="dist/handlebars.templates-X7YVL3G2.js"></script>
+    <script src="dist/sidebar_items-BA277065.js"></script>
 
       <script src="../common_vars.js"></script>
 
-    <script async src="dist/app-f27ff079945e43879c46.js"></script>
+    <script async src="dist/html-XN2TSG4M.js"></script>
 
 
   </head>
-  <body data-type="extras">
+  <body data-type="extras" class="page-extra">
     <script>
 
       try {
-        if (localStorage.getItem('night-mode') === 'true') {
-          document.body.classList.add('night-mode');
+        var settings = JSON.parse(localStorage.getItem('ex_doc:settings') || '{}');
+
+        if (settings.theme === 'dark' ||
+           ((settings.theme === 'system' || settings.theme == null) &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches)
+           ) {
+          document.body.classList.add('dark')
         }
       } catch (error) { }
     </script>
 
 <div class="main">
 
-<button class="sidebar-button sidebar-toggle">
-  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+<button class="sidebar-button sidebar-toggle" aria-label="toggle sidebar">
+  <i class="ri-menu-line ri-lg" title="Collapse/expand sidebar"></i>
 </button>
 
 <section class="sidebar">
   <form class="sidebar-search" action="search.html">
     <button type="submit" class="search-button" aria-label="Submit Search">
-      <span class="icon-search" aria-hidden="true" title="Submit search"></span>
+      <i class="ri-search-2-line" aria-hidden="true" title="Submit search"></i>
     </button>
     <button type="button" tabindex="-1" class="search-close-button" aria-label="Cancel Search">
-      <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
+      <i class="ri-close-line ri-lg" aria-hidden="true" title="Cancel search"></i>
     </button>
     <label class="search-label">
+      <p class="sr-only">Search</p>
       <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
     </label>
   </form>
@@ -53,42 +61,62 @@
   </div>
 
   <div class="sidebar-header">
-    <div class="sidebar-projectDetails">
-      <a href="http://astarte-platform.org" class="sidebar-projectName">
-Astarte
-      </a>
-      <strong class="sidebar-projectVersion">
-        v1.1.0-dev
-      </strong>
-    </div>
 
       <a href="http://astarte-platform.org">
         <img src="assets/logo.png" alt="Astarte" class="sidebar-projectImage">
       </a>
 
+    <div class="sidebar-projectDetails">
+      <a href="http://astarte-platform.org" class="sidebar-projectName" translate="no">
+Astarte
+      </a>
+      <strong class="sidebar-projectVersion" translate="no">
+        v1.1.0-dev
+      </strong>
+    </div>
+    <ul class="sidebar-listNav">
+      <li><a id="extras-list-link" href="#full-list">Pages</a></li>
+
+
+    </ul>
   </div>
 
-  <ul class="sidebar-listNav">
-    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
-
-
-  </ul>
   <div class="gradient"></div>
   <ul id="full-list" class="sidebar-fullList"></ul>
 </section>
 
 <section class="content">
+  <output role="status" id="toast"></output>
   <div class="content-outer">
     <div id="content" class="content-inner">
 
-<h1>Astarte Database</h1><p>Astarte leverages <a href="http://cassandra.apache.org/">Cassandra</a> to store all of its data, including data ingested from devices (which might scale to insane amounts). Cassandra offers scalability and high availability with <a href="https://www.datastax.com/apache-cassandra-leads-nosql-benchmark">good performances</a>.
+<h1>
+<button class="settings display-settings">
+  <i class="ri-settings-3-line"></i>
+  <span class="sr-only">Settings</span>
+</button>
+
+
+    <a href="https://git.ispirata.com/Astarte-NG/pages/architecture/090-database.md#L1" title="View Source" class="view-source" rel="help">
+      <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+      <span class="sr-only">View Source</span>
+    </a>
+
+  <span>Astarte Database</span>
+</h1>
+
+<p>Astarte leverages <a href="http://cassandra.apache.org/">Cassandra</a> to store all of its data, including data ingested from devices (which might scale to insane amounts). Cassandra offers scalability and high availability with <a href="https://www.datastax.com/apache-cassandra-leads-nosql-benchmark">good performances</a>.
 Cassandra offers linear scalability and can span from really small clusters to hundreds of nodes, without compromising on reliability.
 <a href="https://www.scylladb.com/">ScyllaDB</a> &gt;= 3.3 is also supported as a drop-in replacement when a <a href="https://www.scylladb.com/product/benchmarks/">performance boost</a> is needed.</p><p>Cassandra is also the ideal storage for large-scale data processing with <a href="http://spark.apache.org/">Apache Spark</a>.</p><p>Astarte is multi-tenant by design, with each tenant mapping to an Astarte Realm. Each Realm has its own Cassandra keyspace, which can be tuned according to Realm-specific needs (e.g.: Realms might have different replication levels). For this reason, in the scope of this section, realm and keyspace can be used as synonyms, except for the <code class="inline">astarte</code> keyspace.</p><h2 id="schema-and-keyspace-creation" class="section-heading">
-  <a href="#schema-and-keyspace-creation" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#schema-and-keyspace-creation" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">schema-and-keyspace-creation</p>
+  </a>
   Schema and Keyspace Creation
 </h2>
 <p>Astarte automatically takes care of keyspaces, tables creation and intra-version migrations (those tasks are performed by <code class="inline">astarte_housekeeping</code> or <code class="inline">astarte_realm_management</code>, depending on the context). The following documentation is just a reference about Astarte's internal statements, and is related to the release series referenced by the documentation.</p><h3 id="astarte-keyspace" class="section-heading">
-  <a href="#astarte-keyspace" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#astarte-keyspace" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">astarte-keyspace</p>
+  </a>
   Astarte Keyspace
 </h3>
 <p>Astarte needs an <code class="inline">astarte</code> keyspace to store its own data.</p><p><code class="inline">astarte</code> keyspace and tables are created with following <a href="https://docs.datastax.com/en/cql/3.3/index.html">CQL</a> statements:</p><pre><code class="sql">CREATE KEYSPACE astarte
@@ -98,7 +126,9 @@ Cassandra offers linear scalability and can span from really small clusters to h
 
   PRIMARY KEY (realm_name)
 );</code></pre><h3 id="realm-creation" class="section-heading">
-  <a href="#realm-creation" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#realm-creation" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">realm-creation</p>
+  </a>
   Realm Creation
 </h3>
 <p>Each realm needs several tables to store data for all the functionalities.
@@ -219,21 +249,29 @@ Realm tables can be grouped in the following functionalities:</p><ul><li>Configu
 
   PRIMARY KEY ((object_id, object_type), parent_trigger_id, simple_trigger_id)
 );</code></pre><h2 id="tables" class="section-heading">
-  <a href="#tables" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#tables" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">tables</p>
+  </a>
   Tables
 </h2>
 <h3 id="devices" class="section-heading">
-  <a href="#devices" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#devices" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">devices</p>
+  </a>
   Devices
 </h3>
 <p>Devices table stores the list of all the devices for a certain realm and all their metadata, including the introspection, the device status and credentials information.</p><table><thead><tr><th style="text-align: left;">Column Name</th><th style="text-align: left;">Column Type</th><th style="text-align: left;">Description</th></tr></thead><tbody><tr><td style="text-align: left;"><code class="inline">device_id</code></td><td style="text-align: left;"><code class="inline">uuid</code></td><td style="text-align: left;">Device unique 128 bits ID.</td></tr><tr><td style="text-align: left;"><code class="inline">aliases</code></td><td style="text-align: left;"><code class="inline">map&lt;ascii, varchar&gt;</code></td><td style="text-align: left;">Alias purpose and alias map.</td></tr><tr><td style="text-align: left;"><code class="inline">introspection</code></td><td style="text-align: left;"><code class="inline">map&lt;ascii, int&gt;</code></td><td style="text-align: left;">Device interface name to interface major version map based on most recent device introspection.</td></tr><tr><td style="text-align: left;"><code class="inline">introspection_minor</code></td><td style="text-align: left;"><code class="inline">map&lt;ascii, int&gt;</code></td><td style="text-align: left;">Device interface name to interface minor version map based on most recent device introspection.</td></tr><tr><td style="text-align: left;"><code class="inline">old_introspection</code></td><td style="text-align: left;"><code class="inline">map&lt;frozen&lt;tuple&lt;ascii, int&gt;&gt;, int&gt;</code></td><td style="text-align: left;">All previous device interfaces. This column is used to keep track of all interfaces that have been used and might still have some recorded data. The column maps interface (name, major) to minor.</td></tr><tr><td style="text-align: left;"><code class="inline">protocol_revision</code></td><td style="text-align: left;"><code class="inline">int</code></td><td style="text-align: left;">Spoken Astarte MQTT v1 protocol revision.</td></tr><tr><td style="text-align: left;"><code class="inline">first_registration</code></td><td style="text-align: left;"><code class="inline">timestamp</code></td><td style="text-align: left;">First registration attempt timestamp.</td></tr><tr><td style="text-align: left;"><code class="inline">credentials_secret</code></td><td style="text-align: left;"><code class="inline">ascii</code></td><td style="text-align: left;">The bcrypt hash of the credential secret, that the device uses to obtain new credentials.</td></tr><tr><td style="text-align: left;"><code class="inline">inhibit_credentials_request</code></td><td style="text-align: left;"><code class="inline">boolean</code></td><td style="text-align: left;">Ban device credentials renewal, device will be able to connect to the transport up to  the credential expiry.</td></tr><tr><td style="text-align: left;"><code class="inline">cert_serial</code></td><td style="text-align: left;"><code class="inline">ascii</code></td><td style="text-align: left;">Device certificate serial used by the CA.</td></tr><tr><td style="text-align: left;"><code class="inline">cert_aki</code></td><td style="text-align: left;"><code class="inline">ascii</code></td><td style="text-align: left;">Device certificate Authority Key Identifier.</td></tr><tr><td style="text-align: left;"><code class="inline">first_credentials_request</code></td><td style="text-align: left;"><code class="inline">timestamp</code></td><td style="text-align: left;">First credentials request timestamp.</td></tr><tr><td style="text-align: left;"><code class="inline">last_connection</code></td><td style="text-align: left;"><code class="inline">timestamp</code></td><td style="text-align: left;">Most recent device connection event timestamp.</td></tr><tr><td style="text-align: left;"><code class="inline">last_disconnection</code></td><td style="text-align: left;"><code class="inline">timestamp</code></td><td style="text-align: left;">Most recent device disconnection event timestamp.</td></tr><tr><td style="text-align: left;"><code class="inline">connected</code></td><td style="text-align: left;"><code class="inline">boolean</code></td><td style="text-align: left;">True if the device is connected, otherwise is false.</td></tr><tr><td style="text-align: left;"><code class="inline">pending_empty_cache</code></td><td style="text-align: left;"><code class="inline">boolean</code></td><td style="text-align: left;">Device is in an unclean state and an empty cache message is being waited.</td></tr><tr><td style="text-align: left;"><code class="inline">total_received_msgs</code></td><td style="text-align: left;"><code class="inline">bigint</code></td><td style="text-align: left;">Count of received messages since the device registration.</td></tr><tr><td style="text-align: left;"><code class="inline">total_received_bytes</code></td><td style="text-align: left;"><code class="inline">bigint</code></td><td style="text-align: left;">Amount of received messages bytes since the device registration.</td></tr><tr><td style="text-align: left;"><code class="inline">exchanged_msgs_by_interface</code></td><td style="text-align: left;"><code class="inline">bigint</code></td><td style="text-align: left;">Count of exchanged messages since the device registration.</td></tr><tr><td style="text-align: left;"><code class="inline">exchanged_bytes_by_interface</code></td><td style="text-align: left;"><code class="inline">bigint</code></td><td style="text-align: left;">Amount of exchanged messages bytes since the device registration.</td></tr><tr><td style="text-align: left;"><code class="inline">last_credentials_request_ip</code></td><td style="text-align: left;"><code class="inline">inet</code></td><td style="text-align: left;">Device IP address used during the last credential request.</td></tr><tr><td style="text-align: left;"><code class="inline">last_seen_ip</code></td><td style="text-align: left;"><code class="inline">inet</code></td><td style="text-align: left;">Most recent device IP address.</td></tr></tbody></table><p>| <code class="inline">attributes</code>                  | <code class="inline">map&lt;varchar, varchar&gt;</code>               | Device attributes. It can contain arbitrary string key and values associated with the device.
 | <code class="inline">groups</code>                      | <code class="inline">map&lt;text, timeuuid&gt;</code>                 | Groups which the device belongs to, the key is the group name, and the value is its insertion timeuuid, which is used as part of the key on grouped_devices table.                                                                                                                                                                               |</p><h2 id="schema-changes" class="section-heading">
-  <a href="#schema-changes" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#schema-changes" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">schema-changes</p>
+  </a>
   Schema changes
 </h2>
 <p>This section describes the schema changes happening between different Astarte Versions.</p><p>They are divided between Astarte Keyspace (changes that affect the Astarte Keyspace), and Realm
 Keyspaces (changes that affect all realm keyspaces).</p><p>Every change is followed by the CQL statement that produces the change.</p><h3 id="from-v0-10-to-v0-11" class="section-heading">
-  <a href="#from-v0-10-to-v0-11" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#from-v0-10-to-v0-11" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">from-v0-10-to-v0-11</p>
+  </a>
   From v0.10 to v0.11
 </h3>
 <h4>Astarte Keyspace v0.11 Changes</h4><ul><li>Remove <code class="inline">astarte_schema</code> table</li></ul><pre><code class="sql">DROP TABLE astarte_schema;</code></pre><ul><li>Remove <code class="inline">replication_factor</code> column from the <code class="inline">realms</code> table</li></ul><pre><code class="sql">ALTER TABLE realms
@@ -251,7 +289,9 @@ ADD (
   database_retention_ttl int,
   database_retention_policy int
 );</code></pre><h3 id="from-v0-11-to-v1-0-0-beta-1" class="section-heading">
-  <a href="#from-v0-11-to-v1-0-0-beta-1" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#from-v0-11-to-v1-0-0-beta-1" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">from-v0-11-to-v1-0-0-beta-1</p>
+  </a>
   From v0.11 to v1.0.0-beta.1
 </h3>
 <h4>Realm Keyspace v1.0.0-beta.1 Changes</h4><ul><li><p>The <code class="inline">connected</code> field of the <code class="inline">devices</code> table is now saved with a TTL, so it automatically expires
@@ -260,7 +300,9 @@ avoid stale connected devices if they disconnect while the broker is down.</p></
 ADD (
     metadata map&lt;varchar, varchar&gt;
 );</code></pre><h3 id="from-v1-0-beta-1-to-v1-0-0" class="section-heading">
-  <a href="#from-v1-0-beta-1-to-v1-0-0" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  <a href="#from-v1-0-beta-1-to-v1-0-0" class="hover-link"><i class="ri-link-m" aria-hidden="true"></i>
+  <p class="sr-only">from-v1-0-beta-1-to-v1-0-0</p>
+  </a>
   From v1.0-beta.1 to v1.0.0
 </h3>
 <h4>Realm Keyspace v1.0.0 Changes</h4><ul><li>Rename the <code class="inline">metadata</code> to <code class="inline">attributes</code> in the <code class="inline">devices</code> table</li></ul><p><em>Warning</em>: migrating data from the <code class="inline">metadata</code> column to the <code class="inline">attributes</code> one is possible but is out
@@ -297,34 +339,14 @@ Introduction
 
   </div>
 </div>
-
       <footer class="footer">
-        <p>
-          <span class="line">
-            Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.24.2) for the
-            <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
-          </span>
-          <span class="line">
-            Designed by
-            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
-          </span>
-        </p>
-        <p>
 
-          <button class="line footer-button display-shortcuts-help">
-            Display keyboard shortcuts
-          </button>
-          <button class="line footer-button night-mode-toggle">
-            Toggle night mode
-          </button>
-          <button class="line footer-button display-quick-switch">
-            Go to a HexDocs package
-          </button>
-          <button class="line footer-button tooltips-toggle">
-            <span class="tooltips-option-disable">Disable tooltips</span>
-            <span class="tooltips-option-enable">Enable tooltips</span>
-          </button>
+        <p>
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener" translate="no">ExDoc</a> (v0.29.0) for the
+
+            <a href="https://elixir-lang.org" title="Elixir" target="_blank" translate="no">Elixir programming language</a>
+
         </p>
       </footer>
     </div>
