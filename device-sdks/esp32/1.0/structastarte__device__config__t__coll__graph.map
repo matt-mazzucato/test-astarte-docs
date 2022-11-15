@@ -1,0 +1,7 @@
+<map id="astarte_device_config_t" name="astarte_device_config_t">
+<area shape="rect" id="node1" title=" " alt="" coords="449,111,625,138"/>
+<area shape="rect" id="node2" href="$structastarte__device__connection__event__t.html" title=" " alt="" coords="15,5,211,47"/>
+<area shape="rect" id="node3" href="$structastarte__device__data__event__t.html" title=" " alt="" coords="35,71,190,112"/>
+<area shape="rect" id="node4" href="$structastarte__device__unset__event__t.html" title=" " alt="" coords="32,136,193,177"/>
+<area shape="rect" id="node5" href="$structastarte__device__disconnection__event__t.html" title=" " alt="" coords="5,201,220,243"/>
+</map>

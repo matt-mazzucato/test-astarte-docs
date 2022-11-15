@@ -1,0 +1,9 @@
+<map id="/home/mazbdv/ispirata/astarte/astarte&#45;device&#45;sdk&#45;esp32/include/astarte.h" name="/home/mazbdv/ispirata/astarte/astarte&#45;device&#45;sdk&#45;esp32/include/astarte.h">
+<area shape="rect" id="node1" title="Astarte types and defines." alt="" coords="597,5,803,61"/>
+<area shape="rect" id="node2" href="$astarte__bson_8h.html" title="Astarte BSON manipulation functions." alt="" coords="5,117,251,173"/>
+<area shape="rect" id="node3" href="$astarte__bson__serializer_8h.html" title="Astarte BSON serializer functions." alt="" coords="275,109,469,180"/>
+<area shape="rect" id="node4" href="$astarte__credentials_8h.html" title="Astarte credentials functions." alt="" coords="493,109,688,180"/>
+<area shape="rect" id="node5" href="$astarte__device_8h.html" title="Astarte device SDK high level API." alt="" coords="712,109,907,180"/>
+<area shape="rect" id="node6" href="$astarte__hwid_8h.html" title="Astarte hardware ID functions." alt="" coords="931,117,1176,173"/>
+<area shape="rect" id="node7" href="$astarte__pairing_8h.html" title="Astarte pairing functions." alt="" coords="1200,109,1395,180"/>
+</map>
