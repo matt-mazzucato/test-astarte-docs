@@ -6,41 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Page not found</title>
     <script>
-      function replaceDocVersion(uri, replacerFunction) {
-        const docRegex = /\/(snapshot|latest|\d\.\d\d?)\//;
-        const match = uri.match(docRegex);
-        if (!match || match.length < 2) {
-          // No version matched
+      function isAstarteDeviceSDKUrl(url) {
+        return /\/(snapshot|latest|\d\.\d\d?)\/device-sdks\//.test(url);
+      }
+
+      function redirectAstarteDeviceSDKUrl(url) {
+        const redirectedUrl = url.replace(
+          /\/(snapshot|latest|\d\.\d\d?)\/device-sdks\/([^/]+)\//,
+          (fullMatch, version, sdkName) => `/device-sdks/${sdkName}/${version}/api/`
+        );
+        if (
+          redirectedUrl === url ||
+          /\/device-sdks\/([^/]+)\/(snapshot|latest|\d\.\d\d?)\//.test(url)
+        ) {
+          // url was already redirected
           return null;
         }
-        const version = match[1];
-        if (uri.includes(`/${replacerFunction(version)}/`)) {
-          // URI already had the version replaced
+        return redirectedUrl;
+      }
+
+      function isAstarteFlowUrl(url) {
+        return /\/flow\/(snapshot|latest|\d\.\d\d?)\//.test(url);
+      }
+
+      function redirectAstarteFlowUrl(url) {
+        // Docs structure was not changed for Flow.
+        // Since the user landed on this 404 page, the original page does not exist anymore
+        return null;
+      }
+
+      function isAstarteOperatorUrl(url) {
+        const astarteOperatorPages = [
+          "000-upgrade_index.html",
+          "010-upgrade_010_011.html",
+          "020-upgrade_011_10.html",
+          "030-upgrade_100_10x.html",
+        ];
+        return astarteOperatorPages.some((page) => url.includes(page));
+      }
+
+      function redirectAstarteOperatorUrl(url) {
+        const redirectedUrl = url.replace(
+          /\/(snapshot|latest|\d\.\d\d?)\//,
+          "/astarte-kubernetes-operator/latest/"
+        );
+        if (redirectedUrl === url || url.includes("/astarte-kubernetes-operator/latest/")) {
+          // url was already redirected
           return null;
         }
-        return uri.replace(docRegex, (fullMatch, version) => `/${replacerFunction(version)}/`);
+        return redirectedUrl;
       }
-      const astarteOperatorPages = [
-        "000-upgrade_index.html",
-        "010-upgrade_010_011.html",
-        "020-upgrade_011_10.html",
-        "030-upgrade_100_10x.html",
-      ];
-      function isAstarteOperatorUri(uri) {
-        return astarteOperatorPages.some((page) => uri.includes(page));
+
+      function redirectAstarteUrl(url) {
+        const redirectedUrl = url.replace(
+          /\/(snapshot|latest|\d\.\d\d?)\//,
+          (fullMatch, version) => `/astarte/${version}/`
+        );
+        if (redirectedUrl === url || /\/astarte\/(snapshot|latest|\d\.\d\d?)\//.test(url)) {
+          // url was already redirected
+          return null;
+        }
+        return redirectedUrl;
       }
+
       window.onload = function () {
-        const currentUri = window.location.href;
-        const nextUri = isAstarteOperatorUri(currentUri)
-          ? replaceDocVersion(currentUri, (version) => `astarte-kubernetes-operator/latest`)
-          : replaceDocVersion(currentUri, (version) => `astarte/${version}`);
-        window.location.href = nextUri || window.location.origin;
+        const url = window.location.href;
+        console.log(`Computing redirect for url ${url}...`);
+        let redirectedUrl = null;
+        try {
+          if (isAstarteOperatorUrl(url)) {
+            redirectedUrl = redirectAstarteOperatorUrl(url);
+          } else if (isAstarteDeviceSDKUrl(url)) {
+            redirectedUrl = redirectAstarteDeviceSDKUrl(url);
+          } else if (isAstarteFlowUrl(url)) {
+            redirectedUrl = redirectAstarteFlowUrl(url);
+          } else {
+            redirectedUrl = redirectAstarteUrl(url);
+          }
+        } catch (error) {
+          console.log("Error while computing redirect", error);
+        } finally {
+          redirectedUrl = redirectedUrl || window.location.origin;
+          console.log(`Will redirect to ${redirectedUrl}`);
+          window.location.href = redirectedUrl || window.location.origin;
+        }
       };
     </script>
   </head>
   <body>
     <div>
       <h1>Page not found</h1>
+      <p>
+        If you're not automatically redirect, <a href="/">click here</a> to go back to the
+        documentation.
+      </p>
     </div>
   </body>
 </html>
